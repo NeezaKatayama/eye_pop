@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eye Health Deep Report</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./p5.min.js"></script>
+    <script defer src="./report.js"></script>
+  </head>
+  <body>
+    <div class="app-shell report-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Synthetic Wellness Projection</p>
+          <h1>DEEP HEALTH REPORT</h1>
+        </div>
+        <div class="topbar-meta">
+          <span class="status-pill status-idle">SIMULATED / NON-CLINICAL</span>
+          <a class="launch-button report-button" href="./art.html">Open Media Art</a>
+          <a class="launch-button report-button" href="./index.html">Back To Scan</a>
+        </div>
+      </header>
+
+      <main class="report-layout">
+        <section class="report-hero card">
+          <div class="report-hero-frame">
+            <span class="corner corner-tl"></span>
+            <span class="corner corner-tr"></span>
+            <span class="corner corner-bl"></span>
+            <span class="corner corner-br"></span>
+            <div class="report-glyph report-glyph-left">
+              <span>FORTUNE ENGINE</span>
+              <span>ORBITAL HEALTHCAST</span>
+              <span>MOOD CONSTELLATION</span>
+            </div>
+            <div class="report-glyph report-glyph-right">
+              <span id="reportClock">--:--:--</span>
+              <span>NODE / ZETA-9</span>
+              <span id="fortuneMode">MODE / ENTERTAINMENT</span>
+            </div>
+          </div>
+          <div id="reportHud"></div>
+          <div class="report-hero-copy">
+            <div class="card-label">Projection Summary</div>
+            <h2 id="heroHeadline">Synthetic wellness profile ready</h2>
+            <p id="heroSummary" class="summary-text">
+              直前の目トラッキング結果をベースに、SF 演出付きの模擬健康レポートを表示しています。
+            </p>
+            <div class="hero-flags">
+              <span class="chip">SIMULATED</span>
+              <span class="chip">NOT MEDICAL ADVICE</span>
+              <span class="chip" id="capturedAtChip">NO SNAPSHOT</span>
+            </div>
+            <div class="fortune-banner">
+              <div class="fortune-badge">
+                <span class="fortune-label">Aura Tier</span>
+                <strong id="auraTierValue">NEON MIST</strong>
+              </div>
+              <div class="fortune-badge">
+                <span class="fortune-label">Destiny Pulse</span>
+                <strong id="destinyPulseValue">72%</strong>
+              </div>
+              <div class="fortune-badge">
+                <span class="fortune-label">Cosmic Warning</span>
+                <strong id="cosmicWarningValue">LOW</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="report-bottom-grid">
+          <section class="card">
+            <div class="card-label">Fortune Stream</div>
+            <div id="fortuneStream" class="forecast-list"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-label">Cyber Horoscope</div>
+            <div id="horoscopeList" class="forecast-list"></div>
+          </section>
+        </section>
+
+        <section class="card report-grid-card">
+          <div class="card-label">Expanded Forecast Matrix</div>
+          <div id="reportGrid" class="report-grid"></div>
+        </section>
+
+        <section class="report-bottom-grid">
+          <section class="card">
+            <div class="card-label">Primary Indicators</div>
+            <div id="indicatorList" class="forecast-list"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-label">Advisory Stream</div>
+            <div id="advisoryList" class="forecast-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+  </html>

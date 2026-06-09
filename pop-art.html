@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eye Health Pop Media Art</title>
+    <link rel="stylesheet" href="./pop-styles.css" />
+    <script src="./p5.min.js"></script>
+    <script defer src="./pop-art.js"></script>
+  </head>
+  <body class="pop-body">
+    <div class="app-shell pop-shell">
+      <header class="topbar pop-topbar">
+        <div>
+          <p class="eyebrow">Signal Translation Garden</p>
+          <h1>POP MEDIA ART</h1>
+        </div>
+        <div class="topbar-meta">
+          <button id="saveArtButton" class="launch-button report-button">Save Image</button>
+          <span class="status-pill status-idle">P5 POP MODE</span>
+          <a class="launch-button report-button" href="./pop-report.html">Back To Report</a>
+        </div>
+      </header>
+
+      <main class="art-layout">
+        <section class="art-stage card pop-art-stage">
+          <div id="artCanvasMount"></div>
+          <div class="art-overlay-copy">
+            <div class="card-label">Translation Note</div>
+            <p class="summary-text">
+              保存した目の情報を、写真のような軽やかな円形配置へ変換したメディアアートです。色数と円のサイズ、
+              小さな点の偏りが、focus、fatigue、dry eye、sync、iris drift を反映します。
+            </p>
+          </div>
+        </section>
+
+        <section class="art-panels">
+          <section class="card">
+            <div class="card-label">Signal Palette</div>
+            <div id="artSignalList" class="forecast-list"></div>
+          </section>
+          <section class="card">
+            <div class="card-label">Artwork Reading</div>
+            <div id="artReadingList" class="forecast-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

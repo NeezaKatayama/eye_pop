@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eye Health Pop Report</title>
+    <link rel="stylesheet" href="./pop-styles.css" />
+    <script src="./p5.min.js"></script>
+    <script defer src="./report.js"></script>
+  </head>
+  <body class="pop-body">
+    <div class="app-shell pop-shell">
+      <header class="topbar pop-topbar">
+        <div>
+          <p class="eyebrow">Playful Wellness Projection</p>
+          <h1>POP ORBIT REPORT</h1>
+        </div>
+        <div class="topbar-meta">
+          <span class="status-pill status-idle">SIMULATED / NON-CLINICAL</span>
+          <a class="launch-button report-button" href="./pop-art.html">Open Pop Art</a>
+          <a class="launch-button report-button" href="./pop-index.html">Back To Scan</a>
+        </div>
+      </header>
+
+      <main class="report-layout">
+        <section class="report-hero card pop-report-hero">
+          <div class="report-hero-frame">
+            <span class="corner corner-tl"></span>
+            <span class="corner corner-tr"></span>
+            <span class="corner corner-bl"></span>
+            <span class="corner corner-br"></span>
+            <div class="report-glyph report-glyph-left">
+              <span>COLOR ORBIT</span>
+              <span>WELLNESS REMIX</span>
+              <span>SNAPSHOT GARDEN</span>
+            </div>
+            <div class="report-glyph report-glyph-right">
+              <span id="reportClock">--:--:--</span>
+              <span>NODE / POP-09</span>
+              <span id="fortuneMode">MODE / ENTERTAINMENT</span>
+            </div>
+          </div>
+          <div id="reportHud"></div>
+          <div class="report-hero-copy">
+            <div class="card-label">Projection Summary</div>
+            <h2 id="heroHeadline">Colorful wellness profile ready</h2>
+            <p id="heroSummary" class="summary-text">
+              直前の目トラッキング結果をベースに、ポップな円形モジュール付きの模擬レポートを表示しています。
+            </p>
+            <div class="hero-flags">
+              <span class="chip">SIMULATED</span>
+              <span class="chip">NOT MEDICAL ADVICE</span>
+              <span class="chip" id="capturedAtChip">NO SNAPSHOT</span>
+            </div>
+            <div class="fortune-banner">
+              <div class="fortune-badge pop-tone-red">
+                <span class="fortune-label">Aura Tier</span>
+                <strong id="auraTierValue">NEON MIST</strong>
+              </div>
+              <div class="fortune-badge pop-tone-yellow">
+                <span class="fortune-label">Destiny Pulse</span>
+                <strong id="destinyPulseValue">72%</strong>
+              </div>
+              <div class="fortune-badge pop-tone-blue">
+                <span class="fortune-label">Cosmic Warning</span>
+                <strong id="cosmicWarningValue">LOW</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="report-bottom-grid">
+          <section class="card">
+            <div class="card-label">Fortune Stream</div>
+            <div id="fortuneStream" class="forecast-list"></div>
+          </section>
+          <section class="card">
+            <div class="card-label">Color Horoscope</div>
+            <div id="horoscopeList" class="forecast-list"></div>
+          </section>
+        </section>
+
+        <section class="card report-grid-card">
+          <div class="card-label">Expanded Forecast Matrix</div>
+          <div id="reportGrid" class="report-grid"></div>
+        </section>
+
+        <section class="report-bottom-grid">
+          <section class="card">
+            <div class="card-label">Primary Indicators</div>
+            <div id="indicatorList" class="forecast-list"></div>
+          </section>
+          <section class="card">
+            <div class="card-label">Advisory Stream</div>
+            <div id="advisoryList" class="forecast-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
