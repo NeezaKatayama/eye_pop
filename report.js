@@ -204,7 +204,7 @@ function renderReport() {
     ? `CAPTURED ${new Date(snapshot.capturedAt).toLocaleTimeString("ja-JP", { hour12: false })}`
     : "DEMO SNAPSHOT";
   reportDom.auraTierValue.textContent =
-    "Destiny Pulse は、現在の目と集中力のコンディションを、総合的な診断数値を基に表します。70以上で絶好調です。Cosmic Warning は、疲れや乾き、集中の揺らぎ，各種パラメータの中で最も気にしたいサインを示しています。";
+    "Destiny Pulse は目と集中の総合スコア、Cosmic Warning はいま注目したい目のサインです。";
   reportDom.destinyPulseValue.textContent = `${fortuneProfile.destinyPulse}%`;
   reportDom.destinyPulseNote.textContent = fortuneProfile.destinyPulseNote;
   reportDom.cosmicWarningValue.textContent = fortuneProfile.cosmicWarning;
