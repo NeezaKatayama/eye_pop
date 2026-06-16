@@ -14,15 +14,23 @@ const reportDom = {
   fortuneMode: document.getElementById("fortuneMode"),
   auraTierValue: document.getElementById("auraTierValue"),
   destinyPulseValue: document.getElementById("destinyPulseValue"),
-  cosmicWarningValue: document.getElementById("cosmicWarningValue")
+  cosmicWarningValue: document.getElementById("cosmicWarningValue"),
+  matrixModal: document.getElementById("matrixDetailModal"),
+  matrixModalBackdrop: document.getElementById("matrixModalBackdrop"),
+  matrixModalClose: document.getElementById("matrixModalClose"),
+  matrixModalTitle: document.getElementById("matrixModalTitle"),
+  matrixModalLiteral: document.getElementById("matrixModalLiteral"),
+  matrixModalDescription: document.getElementById("matrixModalDescription")
 };
 
 const snapshot = loadSnapshot();
 const reportItems = buildReport(snapshot);
 const fortuneProfile = buildFortuneProfile(snapshot);
+const matrixDetails = buildMatrixDetails();
 
 renderReport();
 mountHud();
+bindMatrixDetailInteractions();
 
 function loadSnapshot() {
   try {
@@ -72,22 +80,22 @@ function buildReport(data) {
   const perclos = Math.round((data.perclos || 0) * 100);
 
   return [
-    item("Neural Fatigue Drift", fatigue, fatigue > 65 ? "elevated" : "moderate", "眼瞼閉鎖時間からの模擬推定"),
-    item("Tear Film Stability", 100 - dryEye, dryEye > 55 ? "fragile" : "stable", "瞬き不足と部分瞬きからの演出値"),
-    item("Visual Recovery Reserve", recovery, recovery > 60 ? "buffered" : "reduced", "視線安定性と疲労から生成"),
-    item("Cognitive Focus Coherence", focus, focus > 65 ? "locked" : "drifting", "虹彩ドリフトの模擬評価"),
-    item("Ocular Symmetry Sync", sync, sync > 70 ? "balanced" : "uneven", "左右眼の開閉バランス"),
-    item("Circadian Drag Index", clampPercent(fatigue + perclos * 0.3), fatigue > 60 ? "late-phase" : "nominal", "眠気寄りの演出パラメータ"),
-    item("Desk Burnout Vector", clampPercent((fatigue + dryEye) * 0.58), dryEye > 60 ? "rising" : "contained", "画面負荷の複合スコア"),
-    item("Retinal Load Projection", clampPercent((100 - focus) * 0.62 + dryEye * 0.18), focus < 45 ? "heavy" : "light", "フォーカス低下ベース"),
-    item("Hydration Suggestion Flux", clampPercent(dryEye * 0.9), dryEye > 58 ? "prompt" : "passive", "ドライアイ寄りの補助値"),
-    item("Micropause Deficit", clampPercent((100 - recovery) * 0.72), recovery < 45 ? "high" : "manageable", "休憩不足の演出用指標"),
-    item("Attention Scatter Field", clampPercent((100 - focus) * 0.85), focus < 50 ? "wide" : "tight", "視線散乱の模擬値"),
-    item("Sleep Debt Echo", clampPercent(perclos * 1.9), perclos > 20 ? "echoing" : "minimal", "PERCLOS 派生の演出項目"),
-    item("Screen Overexposure Flag", clampPercent(dryEye * 0.66 + fatigue * 0.24), dryEye > 52 ? "watch" : "low", "画面暴露の参考表示"),
-    item("Autonomic Calm Estimate", clampPercent(recovery * 0.7 + focus * 0.2), recovery > 55 ? "steady" : "strained", "リカバリー重視の模擬項目"),
-    item("Mental Throughput Forecast", clampPercent(focus * 0.74 + recovery * 0.16), focus > 68 ? "high" : "variable", "集中持続の演出値"),
-    item("Executive Bandwidth", clampPercent(focus * 0.5 + (100 - fatigue) * 0.3), fatigue > 65 ? "compressed" : "open", "負荷と集中の複合値")
+    item("Neural Fatigue Drift", fatigue, fatigue > 65 ? "elevated" : "moderate", "神経疲労の蓄積度"),
+    item("Tear Film Stability", 100 - dryEye, dryEye > 55 ? "fragile" : "stable", "涙液層の安定性"),
+    item("Visual Recovery Reserve", recovery, recovery > 60 ? "buffered" : "reduced", "視覚回復の余力"),
+    item("Cognitive Focus Coherence", focus, focus > 65 ? "locked" : "drifting", "集中力の持続性とブレ"),
+    item("Ocular Symmetry Sync", sync, sync > 70 ? "balanced" : "uneven", "左右の眼の開閉バランス"),
+    item("Circadian Drag Index", clampPercent(fatigue + perclos * 0.3), fatigue > 60 ? "late-phase" : "nominal", "概日リズムの遅れ（眠気度）"),
+    item("Desk Burnout Vector", clampPercent((fatigue + dryEye) * 0.58), dryEye > 60 ? "rising" : "contained", "デスクワーク総合負荷"),
+    item("Retinal Load Projection", clampPercent((100 - focus) * 0.62 + dryEye * 0.18), focus < 45 ? "heavy" : "light", "網膜への蓄積負荷"),
+    item("Hydration Suggestion Flux", clampPercent(dryEye * 0.9), dryEye > 58 ? "prompt" : "passive", "ドライアイ警戒度"),
+    item("Micropause Deficit", clampPercent((100 - recovery) * 0.72), recovery < 45 ? "high" : "manageable", "小休止（マイクロポーズ）の不足度"),
+    item("Attention Scatter Field", clampPercent((100 - focus) * 0.85), focus < 50 ? "wide" : "tight", "視線の散らばり具合"),
+    item("Sleep Debt Echo", clampPercent(perclos * 1.9), perclos > 20 ? "echoing" : "minimal", "睡眠負債の影響度"),
+    item("Screen Overexposure Flag", clampPercent(dryEye * 0.66 + fatigue * 0.24), dryEye > 52 ? "watch" : "low", "画面の長時間注視フラグ"),
+    item("Autonomic Calm Estimate", clampPercent(recovery * 0.7 + focus * 0.2), recovery > 55 ? "steady" : "strained", "自律神経の安定度（リラックス度）"),
+    item("Mental Throughput Forecast", clampPercent(focus * 0.74 + recovery * 0.16), focus > 68 ? "high" : "variable", "処理能力・集中力の持続予測"),
+    item("Executive Bandwidth", clampPercent(focus * 0.5 + (100 - fatigue) * 0.3), fatigue > 65 ? "compressed" : "open", "脳の処理キャパシティ（認知資源）")
   ];
 }
 
@@ -95,17 +103,97 @@ function item(title, value, state, note) {
   return { title, value: Math.round(value), state, note };
 }
 
+function buildMatrixDetails() {
+  return {
+    "Neural Fatigue Drift": {
+      literal: "神経疲労の漂流（ドリフト）",
+      description:
+        "「Drift（徐々にずれていくこと）」の通り、時間が経つにつれて脳や神経の疲労がジワジワと蓄積していく状態を表します。まぶたが閉じている時間（PERCLOSなど）から、脳がどれくらい「トビかけているか（居眠りに近づいているか）」を推定する指標です。"
+    },
+    "Tear Film Stability": {
+      literal: "涙液層（るいえきそう）の安定性",
+      description:
+        "眼球の表面を覆う涙の膜（Tear Film）が、どれくらい安定して目を保護できているかを示します。PC作業に没頭してまばたきが減ったり、瞬きが浅く（部分瞬き）なったりすると、この安定性が下がって目が乾きやすくなります。"
+    },
+    "Visual Recovery Reserve": {
+      literal: "視覚回復のリザーブ（蓄え・余力）",
+      description:
+        "目が受けたダメージや疲労から、どれくらい自力で回復できるかという「目の体力の残りHP」です。視線のフラつき（安定性）と全体の疲労度から算出され、これが減ると「目を休めないと回復が追いつかない状態」になります。"
+    },
+    "Cognitive Focus Coherence": {
+      literal: "認知フォーカスの干渉度（一貫性）",
+      description:
+        "脳が目の前のタスクにどれくらい「迷いなく、深く集中できているか」を示します。「Coherence」は光などの波が綺麗に揃っている状態を意味し、これが高いとゾーンに入った状態（locked）、低いと虹彩（黒目）が微小に彷徨う散漫な状態（drifting）になります。"
+    },
+    "Ocular Symmetry Sync": {
+      literal: "眼球の対称性シンクロ率",
+      description:
+        "左右の目の動きや、まぶたの開閉がどれくらい「左右対称（シンクロ）に動いているか」を評価する指標です。極度に疲れてくると、片目だけが先にトロンとしたり、左右のバランスが崩れたり（uneven）するため、疲労の偏りを見分けるのに使われます。"
+    },
+    "Circadian Drag Index": {
+      literal: "概日（がいじつ）リズムの引きずり指数",
+      description:
+        "体内時計（サーカディアンリズム）による強烈な眠気の引っ張り（Drag）を測定する指標です。夕方や深夜など、時間の経過とともに「起きていようとする意志」を、眠気がどれくらい後ろに引っ張っているか（ late-phase = 睡眠相の遅れ）を表します。"
+    },
+    "Desk Burnout Vector": {
+      literal: "デスクワーク・バーンアウト・ベクトル",
+      description:
+        "目の乾き（物理的負荷）と脳の疲労（精神的負荷）が掛け合わさることで、「どのくらいの勢いでデスクワークの限界（燃え尽き）に向かっているか」を示す総合的なエネルギー消耗メーターです。"
+    },
+    "Retinal Load Projection": {
+      literal: "網膜負荷の予測・投影",
+      description:
+        "ディスプレイの光や、視線が定まらない状態で画面を見続けることによって、目の奥の「網膜（Retina）」にどれくらい光のストレス・負荷が蓄積しているかを予測（Projection）した数値です。フォーカスが合っていない時ほど網膜への負担が増します。"
+    },
+    "Hydration Suggestion Flux": {
+      literal: "水分補給推奨の流動（フラックス）",
+      description:
+        "体内、あるいは眼球の「水分不足（ドライアイ）」を検知し、水分補給（目薬や飲水）を促すためのリアルタイムなアラート変動値です。「Flux（流動）」という名の通り、目の乾き具合に応じて「今すぐ補給すべき（prompt）」と、シグナルの強さが変動します。"
+    },
+    "Micropause Deficit": {
+      literal: "マイクロポーズ（小休止）の不足額（赤字）",
+      description:
+        "作業中に数秒〜数十秒間、画面から目を離してぼーっとするような「小さな休憩（Micropause）」が、どれくらい不足（Deficit）しているかを示す指標です。これが赤字（high）になると、休憩を挟まずにぶっ続けで作業している危険なサインになります。"
+    },
+    "Attention Scatter Field": {
+      literal: "注意力散乱フィールド",
+      description:
+        "集中力が切れて、視線があちコチに散らばっている（Scatter）範囲や度合いを可視化した空間的な指標です。数値が高く範囲が広がる（wide）ほど、1点に集中できず、上の空で画面を見つめているか、視線が泳いでいる状態を意味します。"
+    },
+    "Sleep Debt Echo": {
+      literal: "睡眠負債のエコー（反響）",
+      description:
+        "過去の睡眠不足（睡眠負債）が、現在のパフォーマンスにどれくらい「影を落としているか（Echoとして響いているか）」を示す指標です。まぶたが閉じている時間の割合（PERCLOS）から、蓄積した寝不足のダメージを検出します。"
+    },
+    "Screen Overexposure Flag": {
+      literal: "画面過剰暴露フラグ",
+      description:
+        "ディスプレイの光（ブルーライトなど）に、目がどれほど「過剰に晒されているか（Overexposure）」を警戒するためのフラグです。ドライアイと疲労の掛け合わせから、これ以上画面を見続けるのはリスクが高い（watch）と判断するために使われます。"
+    },
+    "Autonomic Calm Estimate": {
+      literal: "自律神経の平穏度推定",
+      description:
+        "心身がどれくらいリラックスして落ち着いた（Calm）状態にあるかを、目の回復力（リザーブ）と集中度からシミュレートした数値です。これが低い（strained）と、交感神経が優位になりすぎて緊張・ストレス状態が続いていることを示します。"
+    },
+    "Mental Throughput Forecast": {
+      literal: "メンタル・スループット（処理能力）予測",
+      description:
+        "脳が情報を処理できるペース（Throughput）が、この先どれくらい維持できそうかを予測（Forecast）したものです。集中力と回復力が高ければ「高い処理能力を維持できる（high）」、低下していれば「能率がガタガタになる（variable）」と予測されます。"
+    },
+    "Executive Bandwidth": {
+      literal: "実行機能の帯域幅（キャパシティ）",
+      description:
+        "脳の司令塔である「実行機能（計画を立てる、判断する、感情をコントロールするなど）」に、あとどれくらい処理容量（Bandwidth）が残されているかを示します。疲労で脳の帯域が圧迫されると「容量不足（compressed）」になり、単純なミスが増えたり思考が停止したりします。"
+    }
+  };
+}
+
 function clampPercent(value) {
   return Math.max(0, Math.min(100, value));
 }
 
 function renderReport() {
-  reportDom.heroHeadline.textContent =
-    snapshot.fatigue > 0.65
-      ? "Your neon aura is overheating in spectacular fashion"
-      : snapshot.focus > 0.65
-        ? "Your optic field has entered a rare focus constellation"
-        : "Your bio-signal haze suggests a balanced cyber-mood";
+  reportDom.heroHeadline.textContent = "Rendering report from your latest ocular telemetry.";
 
   reportDom.heroSummary.textContent =
     "直前の目のシグナルをもとに、視覚化したレポートを表示しています。";
@@ -121,7 +209,7 @@ function renderReport() {
   reportDom.grid.innerHTML = reportItems
     .map(
       (entry) => `
-        <article class="report-card">
+        <article class="report-card matrix-card" role="button" tabindex="0" data-matrix-title="${entry.title}">
           <div class="report-card-head">
             <span class="report-card-title">${entry.title}</span>
             <span class="report-card-state">${entry.state}</span>
@@ -175,6 +263,62 @@ function renderReport() {
   reportDom.horoscopeList.innerHTML = horoscopeLines.map((text, index) => `<div class="forecast-row ${index === 0 ? "emphasis" : ""}">${text}</div>`).join("");
 }
 
+function bindMatrixDetailInteractions() {
+  if (!reportDom.grid || !reportDom.matrixModal) {
+    return;
+  }
+
+  reportDom.grid.addEventListener("click", (event) => {
+    const card = event.target.closest(".matrix-card");
+    if (!card) {
+      return;
+    }
+    openMatrixDetail(card.dataset.matrixTitle);
+  });
+
+  reportDom.grid.addEventListener("keydown", (event) => {
+    const card = event.target.closest(".matrix-card");
+    if (!card || (event.key !== "Enter" && event.key !== " ")) {
+      return;
+    }
+    event.preventDefault();
+    openMatrixDetail(card.dataset.matrixTitle);
+  });
+
+  reportDom.matrixModalClose?.addEventListener("click", closeMatrixDetail);
+  reportDom.matrixModalBackdrop?.addEventListener("click", closeMatrixDetail);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && reportDom.matrixModal?.classList.contains("is-open")) {
+      closeMatrixDetail();
+    }
+  });
+}
+
+function openMatrixDetail(title) {
+  const detail = matrixDetails[title];
+  if (!detail || !reportDom.matrixModal) {
+    return;
+  }
+
+  reportDom.matrixModalTitle.textContent = title;
+  reportDom.matrixModalLiteral.textContent = detail.literal;
+  reportDom.matrixModalDescription.textContent = detail.description;
+  reportDom.matrixModal.classList.add("is-open");
+  reportDom.matrixModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeMatrixDetail() {
+  if (!reportDom.matrixModal) {
+    return;
+  }
+
+  reportDom.matrixModal.classList.remove("is-open");
+  reportDom.matrixModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
 function buildFortuneProfile(data) {
   const fatigue = Math.round((data.fatigue || 0) * 100);
   const dryEye = Math.round((data.dryEye || 0) * 100);
@@ -225,18 +369,18 @@ function mountHud() {
     const palette = isPop
       ? {
           grid: [0, 0, 0, 34],
-          fatigue: [222, 61, 74, 185],
+          fatigue: [73, 132, 214, 185],
           recovery: [123, 199, 189, 170],
           sync: [232, 170, 69, 180],
-          ticks: [0, 0, 0, 120],
-          cross: [0, 0, 0, 130],
+          ticks: [186, 181, 174, 136],
+          cross: [186, 181, 174, 136],
           core: [93, 149, 173, 165],
           orbitDot: [93, 149, 173, 175],
           shard: [232, 170, 69, 105],
-          sweep: [222, 61, 74, 34],
+          sweep: [73, 132, 214, 34],
           band: [93, 149, 173, 20],
           title: [0, 0, 0, 210],
-          subtitle: [222, 61, 74, 190]
+          subtitle: [73, 132, 214, 190]
         }
       : {
           grid: [90, 245, 255, 65],
@@ -263,6 +407,13 @@ function mountHud() {
       speed: 0.003 + Math.random() * 0.012,
       size: 8 + Math.random() * 14
     }));
+    const radialNodes = Array.from({ length: 12 }, (_, index) => ({
+      angle: (Math.PI * 2 * index) / 12,
+      radius: 154 + (index % 3) * 34,
+      size: 7 + (index % 4) * 2,
+      speed: 0.004 + index * 0.0009
+    }));
+    const orbitBands = [154, 194, 236, 278];
 
     p.setup = () => {
       const canvas = p.createCanvas(reportDom.hudMount.clientWidth || 300, 360);
@@ -298,6 +449,18 @@ function mountHud() {
       p.stroke(...palette.sync);
       p.arc(0, 0, 306, 306, p.PI * 1.08, p.PI * 1.08 + p.TAU * (snapshot.sync || 0.5) * 0.55);
 
+      for (let i = 0; i < orbitBands.length; i += 1) {
+        const diameter = orbitBands[i] * 2;
+        const spin = p.frameCount * (0.008 + i * 0.0018);
+        const primaryBand = i < 2 ? palette.core : palette.sync;
+        const secondaryBand = i < 2 ? palette.fatigue : palette.recovery;
+        p.strokeWeight(i % 2 === 0 ? 2 : 1.4);
+        p.stroke(...primaryBand);
+        p.arc(0, 0, diameter, diameter, spin, spin + p.PI * (0.28 + i * 0.08));
+        p.stroke(...secondaryBand);
+        p.arc(0, 0, diameter, diameter, spin + p.PI * 0.9, spin + p.PI * (1.08 + i * 0.06));
+      }
+
       p.stroke(...palette.ticks);
       p.strokeWeight(2);
       for (let a = 0; a < 360; a += 18) {
@@ -317,12 +480,28 @@ function mountHud() {
       p.strokeWeight(3);
       p.arc(0, 0, 94, 94, p.frameCount * 0.03, p.frameCount * 0.03 + p.PI * 0.9);
       p.arc(0, 0, 124, 124, -p.frameCount * 0.024, -p.frameCount * 0.024 + p.PI * 0.72);
+      p.stroke(...palette.recovery);
+      p.strokeWeight(7);
+      p.arc(0, 0, 72, 72, -p.frameCount * 0.018, -p.frameCount * 0.018 + p.PI * 0.46);
+      p.stroke(...palette.fatigue);
+      p.strokeWeight(4);
+      p.arc(0, 0, 58, 58, p.frameCount * 0.036, p.frameCount * 0.036 + p.PI * 0.34);
 
       p.noStroke();
       for (const dot of orbitDots) {
         const angle = dot.angle + p.frameCount * 0.01 * ((dot.radius % 2) ? 1 : -1);
         p.fill(...palette.orbitDot);
         p.circle(Math.cos(angle) * dot.radius, Math.sin(angle) * dot.radius, 3.4);
+      }
+
+      for (const node of radialNodes) {
+        const angle = node.angle + p.frameCount * node.speed;
+        const x = Math.cos(angle) * node.radius;
+        const y = Math.sin(angle) * node.radius;
+        p.fill(...palette.sync);
+        p.circle(x, y, node.size + Math.sin(angle * 3 + p.frameCount * 0.02) * 1.8);
+        p.fill(...palette.fatigue);
+        p.circle(x * 0.86, y * 0.86, node.size * 0.34);
       }
 
       for (const shard of shards) {
@@ -336,6 +515,14 @@ function mountHud() {
         p.rect(-shard.size * 0.5, -2, shard.size, 4);
         p.pop();
       }
+
+      p.noFill();
+      p.stroke(...palette.band);
+      p.strokeWeight(18);
+      p.arc(0, 0, 340, 340, -p.HALF_PI + p.frameCount * 0.008, -p.HALF_PI + p.frameCount * 0.008 + p.PI * 0.2);
+      p.stroke(...palette.sweep);
+      p.strokeWeight(12);
+      p.arc(0, 0, 356, 356, p.PI * 0.2 - p.frameCount * 0.01, p.PI * 0.34 - p.frameCount * 0.01);
 
       if (p.frameCount % 80 < 26) {
         p.fill(...palette.sweep);

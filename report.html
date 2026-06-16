@@ -6,7 +6,7 @@
     <title>Eye Health Pop Report</title>
     <link rel="stylesheet" href="./pop-styles.css" />
     <script src="./p5.min.js"></script>
-    <script defer src="./report.js"></script>
+    <script defer src="./report.js?v=jp-labels-2"></script>
   </head>
   <body class="pop-body">
     <div class="app-shell pop-shell">
@@ -96,6 +96,29 @@
           </section>
         </section>
       </main>
+
+      <div id="matrixDetailModal" class="matrix-modal" aria-hidden="true">
+        <div id="matrixModalBackdrop" class="matrix-modal-backdrop"></div>
+        <section class="matrix-modal-panel" role="dialog" aria-modal="true" aria-labelledby="matrixModalTitle">
+          <div class="matrix-modal-head">
+            <div>
+              <div class="card-label">Matrix Detail</div>
+              <h2 id="matrixModalTitle">Neural Fatigue Drift</h2>
+            </div>
+            <button id="matrixModalClose" class="matrix-close-button" type="button" aria-label="close">Close</button>
+          </div>
+          <div class="matrix-modal-body">
+            <div class="matrix-copy-block">
+              <span class="matrix-copy-label">直訳</span>
+              <p id="matrixModalLiteral" class="summary-text"></p>
+            </div>
+            <div class="matrix-copy-block">
+              <span class="matrix-copy-label">解説</span>
+              <p id="matrixModalDescription" class="summary-text"></p>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </body>
 </html>

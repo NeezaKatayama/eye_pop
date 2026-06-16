@@ -339,6 +339,22 @@ h2 {
   padding: 18px;
 }
 
+.matrix-card {
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.matrix-card:hover,
+.matrix-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+  border-color: rgba(93, 149, 173, 0.45);
+  outline: none;
+}
+
 .console-key,
 .metric-title,
 .fortune-label,
@@ -416,6 +432,88 @@ h2 {
   justify-content: space-between;
   gap: 10px;
   align-items: flex-start;
+}
+
+.matrix-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+}
+
+.matrix-modal.is-open {
+  display: block;
+}
+
+.matrix-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(247, 245, 239, 0.72);
+  backdrop-filter: blur(12px);
+}
+
+.matrix-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(760px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  margin: 24px auto;
+  overflow: auto;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 34px;
+  background: rgba(255, 252, 247, 0.96);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.16);
+  padding: 28px 28px 30px;
+}
+
+.matrix-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.matrix-modal-head h2 {
+  margin: 8px 0 0;
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  line-height: 1.15;
+}
+
+.matrix-close-button {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #111;
+  padding: 10px 16px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.matrix-modal-body {
+  display: grid;
+  gap: 16px;
+}
+
+.matrix-copy-block {
+  border-radius: 24px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.matrix-copy-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5d95ad;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .art-stage {

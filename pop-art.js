@@ -98,11 +98,11 @@ function renderPanels() {
 
   const readings = [
     `Artwork title: ${artProfile.title}`,
-    "Focus は青系と白の比率、層の整い方に反映されます。",
-    "Fatigue は回転速度と赤・橙の存在感に反映されます。",
-    "Dry eye は円弧の伸び縮みと切れ方の激しさに反映されます。",
-    "Recovery は太い明るい弧の増え方に反映されます。",
-    "Iris drift は全体のゆらぎと配置のわずかな偏位に反映されます。"
+    "Focus ; 寒色の比率、layerの整列に反映されます．",
+    "Fatigue ; 回転速度と暖色の比率に反映されます．",
+    "Dry eye ; 円弧の伸び縮みと切れ方に反映されます.",
+    "Recovery ; 弧の増え方に反映されます．",
+    "Iris drift ; 全体のゆらぎと配置の偏位に反映されます．"
   ];
 
   artDom.signalList.innerHTML = signals.map((text, index) => `<div class="forecast-row ${index === 0 ? "emphasis" : ""}">${text}</div>`).join("");
