@@ -3,20 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Eye Health HUD</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Eye Health Pop Orbit</title>
+    <link rel="stylesheet" href="./pop-styles.css" />
     <script src="./p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
     <script defer src="./app.js"></script>
   </head>
-  <body>
-    <div class="app-shell">
-      <header class="topbar">
+  <body class="pop-body">
+    <div class="app-shell pop-shell">
+      <header class="topbar pop-topbar">
         <div>
-          <p class="eyebrow">Optic Wellness Interface</p>
-          <h1>EYE HEALTH HUD</h1>
+          <p class="eyebrow">Playful Ocular Screening</p>
+          <h1>EYE HEALTH POP ORBIT</h1>
         </div>
         <div class="topbar-meta">
           <span id="connectionStatus" class="status-pill status-idle">CAMERA OFFLINE</span>
@@ -24,12 +24,29 @@
         </div>
       </header>
 
-      <main class="layout">
+      <main class="layout pop-layout">
         <section class="stage-panel">
-          <div class="stage-frame">
+          <section class="card pop-intro-card">
+            <div>
+              <div class="card-label">Playful Scan</div>
+              <h2>世界で一つのあなたの目を分析</h2>
+              <p class="summary-text"></p>
+            </div>
+            <div class="pop-dot-cluster" aria-hidden="true">
+              <span class="pd red lg"></span>
+              <span class="pd black md"></span>
+              <span class="pd blue sm"></span>
+              <span class="pd yellow md"></span>
+              <span class="pd black lg"></span>
+              <span class="pd red xs"></span>
+              <span class="pd blue xs"></span>
+            </div>
+          </section>
+
+          <div class="stage-frame pop-stage-frame">
             <video id="video" playsinline muted></video>
             <canvas id="visionCanvas"></canvas>
-            <div class="stage-vignette"></div>
+            <div class="stage-vignette pop-stage-vignette"></div>
             <div class="frame-corners">
               <span class="corner corner-tl"></span>
               <span class="corner corner-tr"></span>
@@ -37,49 +54,43 @@
               <span class="corner corner-br"></span>
             </div>
             <div class="stage-glyph stage-glyph-left">
-              <span>RETINA TRACE</span>
-              <span>BLINK VECTOR</span>
-              <span>FOCUS CHANNEL</span>
+              <span>FOCUS ORBIT</span>
+              <span>BLINK BLOOM</span>
+              <span>DRIFT TRACE</span>
             </div>
             <div class="stage-glyph stage-glyph-right">
               <span id="liveClock">--:--:--</span>
-              <span>OCULAR NODE / A-17</span>
+              <span>COLOR NODE / P-04</span>
               <span id="scanModeLabel">MODE / PASSIVE SWEEP</span>
             </div>
             <div id="hudOverlay"></div>
             <div class="center-caption">
-              <span>Live ocular mesh / fatigue sweep / blink telemetry</span>
-            </div>
-            <div class="bottom-tape">
-              <span>OPTIC WELLNESS ENGINE</span>
-              <span>NON-CLINICAL SCREENING</span>
-              <span>FACE MESH LOCK</span>
-              <span>CYBERNETIC HUD ACTIVE</span>
+              <span>same eye metrics / softer orbit UI / saved snapshot compatible</span>
             </div>
           </div>
 
           <div class="stage-instructions">
             <div class="chip">1. 顔を正面に向ける</div>
-            <div class="chip">2. 目元が見える明るさにする</div>
-            <div class="chip">3. 60秒ほど見ると精度が安定</div>
+            <div class="chip">2. 目元が見える位置にする</div>
+            <div class="chip">3. 60秒ほど見ると安定</div>
           </div>
 
-          <section class="stage-console card">
-            <div class="card-label">Sweep Console</div>
+          <section class="stage-console card pop-console-card">
+            <div class="card-label">Signal Chips</div>
             <div class="console-grid">
-              <div class="console-box">
+              <div class="console-box pop-tone-red">
                 <span class="console-key">Signal Lock</span>
                 <strong id="signalLockValue">IDLE</strong>
               </div>
-              <div class="console-box">
+              <div class="console-box pop-tone-yellow">
                 <span class="console-key">Eye Closure</span>
                 <strong id="eyeClosureValue">0%</strong>
               </div>
-              <div class="console-box">
+              <div class="console-box pop-tone-blue">
                 <span class="console-key">Blink Pattern</span>
                 <strong id="blinkPatternValue">STABLE</strong>
               </div>
-              <div class="console-box">
+              <div class="console-box pop-tone-mint">
                 <span class="console-key">Visual Load</span>
                 <strong id="visualLoadValue">LOW</strong>
               </div>
@@ -91,30 +102,30 @@
           <section class="card">
             <div class="card-label">Wellness Scope</div>
             <p class="card-copy">
-              このサービスは医療診断ではなく、目の開閉・瞬き・視線安定性から
-              疲労、眠気、ドライアイ傾向、画面負荷を推定するウェルネス用スクリーニングです。
+              目の開閉・瞬き・視線安定性から疲労、眠気、ドライアイ傾向、集中力を
+              推定します
             </p>
           </section>
 
           <section class="card metrics-card">
             <div class="card-label">Health Signals</div>
             <div class="metric-grid">
-              <article class="metric">
+              <article class="metric pop-tone-red">
                 <div class="metric-title">Fatigue Risk</div>
                 <div id="fatigueValue" class="metric-value">--</div>
                 <div id="fatigueText" class="metric-text">awaiting signal</div>
               </article>
-              <article class="metric">
+              <article class="metric pop-tone-yellow">
                 <div class="metric-title">Dry Eye Tendency</div>
                 <div id="dryEyeValue" class="metric-value">--</div>
                 <div id="dryEyeText" class="metric-text">awaiting signal</div>
               </article>
-              <article class="metric">
+              <article class="metric pop-tone-blue">
                 <div class="metric-title">Focus Stability</div>
                 <div id="focusValue" class="metric-value">--</div>
                 <div id="focusText" class="metric-text">awaiting signal</div>
               </article>
-              <article class="metric">
+              <article class="metric pop-tone-mint">
                 <div class="metric-title">Recovery Index</div>
                 <div id="recoveryValue" class="metric-value">--</div>
                 <div id="recoveryText" class="metric-text">awaiting signal</div>
@@ -124,26 +135,11 @@
 
           <section class="card telemetry-card">
             <div class="card-label">Telemetry</div>
-            <div class="telemetry-row">
-              <span>Blink Rate</span>
-              <strong id="blinkRateValue">-- /min</strong>
-            </div>
-            <div class="telemetry-row">
-              <span>PERCLOS</span>
-              <strong id="perclosValue">-- %</strong>
-            </div>
-            <div class="telemetry-row">
-              <span>Average Blink</span>
-              <strong id="blinkDurationValue">-- ms</strong>
-            </div>
-            <div class="telemetry-row">
-              <span>Partial Blink Ratio</span>
-              <strong id="partialBlinkValue">-- %</strong>
-            </div>
-            <div class="telemetry-row">
-              <span>Iris Drift</span>
-              <strong id="irisDriftValue">--</strong>
-            </div>
+            <div class="telemetry-row"><span>Blink Rate</span><strong id="blinkRateValue">-- /min</strong></div>
+            <div class="telemetry-row"><span>PERCLOS</span><strong id="perclosValue">-- %</strong></div>
+            <div class="telemetry-row"><span>Average Blink</span><strong id="blinkDurationValue">-- ms</strong></div>
+            <div class="telemetry-row"><span>Partial Blink Ratio</span><strong id="partialBlinkValue">-- %</strong></div>
+            <div class="telemetry-row"><span>Iris Drift</span><strong id="irisDriftValue">--</strong></div>
           </section>
 
           <section class="card system-card">
@@ -155,16 +151,16 @@
           </section>
 
           <section class="card">
-            <div class="card-label">HUD Assessment</div>
+            <div class="card-label">Playful Assessment</div>
             <p id="summaryText" class="summary-text">
-              カメラを起動すると、目の状態から健康シグナルを推定します。
+              カメラを起動してください
             </p>
             <div class="report-actions">
-              <a class="launch-button report-button" href="./report.html">Open Deep Report</a>
+              <a class="launch-button report-button" href="./report.html">Open Pop Report</a>
             </div>
           </section>
         </aside>
       </main>
     </div>
   </body>
-  </html>
+</html>

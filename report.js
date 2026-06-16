@@ -108,7 +108,7 @@ function renderReport() {
         : "Your bio-signal haze suggests a balanced cyber-mood";
 
   reportDom.heroSummary.textContent =
-    "この画面は直前の観測値を元にした、サイバーパンク演出つきの模擬ヘルス占いです。すべて entertainment 用の synthetic projection であり、診断結果ではありません。";
+    "直前の目のシグナルをもとに、視覚化したレポートを表示しています。";
 
   reportDom.capturedAtChip.textContent = snapshot.capturedAt
     ? `CAPTURED ${new Date(snapshot.capturedAt).toLocaleTimeString("ja-JP", { hour12: false })}`
@@ -183,7 +183,7 @@ function buildFortuneProfile(data) {
   const sync = Math.round((data.sync || 0) * 100);
   const index = (fatigue + dryEye + focus + recovery + sync) % 5;
 
-  const auraTiers = ["NEON MIST", "SOLAR STATIC", "GLASS COMET", "VOID BLOSSOM", "LASER LOTUS"];
+  const auraTiers = ["NEON MIST", "SOLAR STATIC", "GLASS COMET", "AURORA BLOOM", "LASER LOTUS"];
   const modes = ["AURA DIVINATION", "DREAM SCAN", "FOCUS PROPHECY", "CIRCADIAN ORACLE", "RETINA RITUAL"];
   const animals = ["Pixel Fox", "Chrome Owl", "Plasma Cat", "Quantum Whale", "Neon Wolf"];
   const affinities = ["危険なほど高い", "妙に高い", "そこそこ良い", "少し不安定", "完全に夜型の気配"];
@@ -354,7 +354,7 @@ function mountHud() {
       p.text(fortuneProfile.auraTier, 0, -8);
       p.textSize(10);
       p.fill(...palette.subtitle);
-      p.text("ENTERTAINMENT HEALTH ORACLE", 0, 16);
+      p.text("ENTERTAINMENT SIGNAL ORBIT", 0, 16);
     };
   });
 }

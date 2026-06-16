@@ -258,12 +258,5 @@ function bindSaveAction() {
 }
 
 function drawCaption(p) {
-  p.noStroke();
-  p.fill(0, 0, 0, 220);
-  p.textAlign(p.CENTER, p.CENTER);
-  p.textSize(24);
-  p.text(artProfile.title, p.width / 2, p.height - 60);
-  p.textSize(11);
-  p.fill(0, 0, 0, 150);
-  p.text("SAVED EYE SNAPSHOT / POP ARC FIELD / AUTO SIGNAL MOTION", p.width / 2, p.height - 32);
+  return;
 }

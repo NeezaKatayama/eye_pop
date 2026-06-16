@@ -150,6 +150,10 @@ h2 {
   line-height: 1.6;
 }
 
+#summaryText {
+  min-height: 3.6em;
+}
+
 .pop-intro-card,
 .report-hero {
   display: grid;
