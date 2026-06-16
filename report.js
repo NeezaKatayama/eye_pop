@@ -240,21 +240,21 @@ function renderReport() {
   ];
 
   const fortuneLines = [
-    `ENTERTAINMENT: 今日のオーラ層は ${fortuneProfile.auraTier}`,
-    `ENTERTAINMENT: 未来12時間の集中運は ${fortuneProfile.focusLuck}`,
-    `ENTERTAINMENT: あなたのサイバー気力属性は ${fortuneProfile.energyAnimal}`,
+    `ENTERTAINMENT: 今日のオーラ： ${fortuneProfile.auraTier}`,
+    `ENTERTAINMENT: これから12時間の集中運： ${fortuneProfile.focusLuck}`,
+    `ENTERTAINMENT: 今のあなたの属性アニマル： ${fortuneProfile.energyAnimal}`,
     `ENTERTAINMENT: 深夜作業との相性は ${fortuneProfile.nightAffinity}`,
-    `ENTERTAINMENT: 目薬を差したくなる確率は ${fortuneProfile.eyeDropChance}%`,
+    `ENTERTAINMENT: 目薬が恋しくなる確率： ${fortuneProfile.eyeDropChance}%`,
     `ENTERTAINMENT: 明日のデスク戦闘力は ${fortuneProfile.deskPower}%`
   ];
 
   const horoscopeLines = [
     `HOROSCOPE: ${fortuneProfile.prediction}`,
-    `HOROSCOPE: ラッキーカラーは ${fortuneProfile.luckyColor}`,
-    `HOROSCOPE: ラッキー休憩法は ${fortuneProfile.luckyBreak}`,
-    `HOROSCOPE: 今日は ${fortuneProfile.moodForecast}`,
-    `HOROSCOPE: 集中が切れたら ${fortuneProfile.rebootRitual} を実行`,
-    `HOROSCOPE: あなたの視線星座は ${fortuneProfile.gazeConstellation}`
+    `HOROSCOPE: ラッキーカラー： ${fortuneProfile.luckyColor}`,
+    `HOROSCOPE: おすすめのひと休み： ${fortuneProfile.luckyBreak}`,
+    `HOROSCOPE: 今日のあなた： ${fortuneProfile.moodForecast}`,
+    `HOROSCOPE: 集中が切れたら： ${fortuneProfile.rebootRitual}`,
+    `HOROSCOPE: あなたの視線星座： ${fortuneProfile.gazeConstellation}`
   ];
 
   reportDom.indicatorList.innerHTML = indicators.map((text) => `<div class="forecast-row">${text}</div>`).join("");
@@ -327,21 +327,33 @@ function buildFortuneProfile(data) {
   const sync = Math.round((data.sync || 0) * 100);
   const index = (fatigue + dryEye + focus + recovery + sync) % 5;
 
-  const auraTiers = ["NEON MIST", "SOLAR STATIC", "GLASS COMET", "AURORA BLOOM", "LASER LOTUS"];
+  const auraTiers = [
+    "冴え渡るクリアブルー",
+    "ほっと落ち着くライムグリーン",
+    "じんわり温かいオレンジ",
+    "AURORA BLOOM",
+    "元気がみなぎるサンシャインレッド"
+  ];
   const modes = ["AURA DIVINATION", "DREAM SCAN", "FOCUS PROPHECY", "CIRCADIAN ORACLE", "RETINA RITUAL"];
   const animals = ["Pixel Fox", "Chrome Owl", "Plasma Cat", "Quantum Whale", "Neon Wolf"];
-  const affinities = ["危険なほど高い", "妙に高い", "そこそこ良い", "少し不安定", "完全に夜型の気配"];
+  const affinities = ["恐ろしいほど抜群", "なぜかめちゃくちゃ高い", "悪くない感じ", "ちょっとムラがあるかも", "どっぷり夜型モードの気配"];
   const colors = ["electric cyan", "burnt amber", "acid mint", "laser coral", "moonlit silver"];
-  const breaks = ["20秒だけ遠くを見る", "水をひと口飲む", "ゆっくり完全瞬きを3回", "肩を一度だけ回す", "窓の外を10秒スキャン"];
-  const moods = ["静かな勝ち運がある", "妙に締切に強い", "夕方に覚醒しやすい", "午後に物欲が増える", "なぜかコードが光って見える"];
-  const rituals = ["視線を左上に逃がす", "背筋を起動する", "デスクに触れて再同期する", "深呼吸してHUDをリセットする", "ゆっくり瞬いてチャージする"];
-  const constellations = ["Blink Draco", "Retina Lyra", "Ocular Phoenix", "Sleep Echo Orion", "Neon Hydrae"];
+  const breaks = ["20秒間遠くをぼーっと眺める", "水をひと口飲んでリフレッシュする", "ぎゅっと目をつむってゆっくり3回まばたきする", "肩をぐるっと大きく一回まわす", "窓の外の景色を10秒眺める"];
+  const moods = ["静かにゾーンに入れそうな予感", "なぜか締切直前にめちゃくちゃ強い", "夕方になると急に元気が出るタイプ", "午後になると急に買い物したくなるかも", "なぜか画面の文字がすらすら頭に入る"];
+  const rituals = ["視線を一度左上にそらしてみる", "グッと背筋をのばしてみる", "デスクに手を置いて一度落ち着く", "深呼吸して頭をからっぽにする", "ゆっくりまばたきして目を休める"];
+  const constellations = [
+    "まばたきを忘れたオリオン座",
+    "遠くを静かに見つめる北斗七星",
+    "ひと休み中のはくちょう座",
+    "潤いあふれるみずがめ座",
+    "ひらめきが止まらないペガサス座"
+  ];
   const predictions = [
-    "今夜のあなたは『5分休憩しただけで世界を救える気になる』運勢です。",
-    "次に飲む飲み物で集中モードが切り替わる暗示があります。",
-    "午後に一度だけ、異様に作業が進む黄金の15分が訪れます。",
-    "今日は『少し休むと全部うまくいく』タイプの未来線が強いです。",
-    "目を労わるほど、なぜか発想がSF寄りになる日です。"
+    "今夜のあなたは5分休むだけでなんだかいけそうな気がすると思える無敵の運勢です。",
+    "次に口にする飲み物が集中モードに入る良いスイッチになりそうです。",
+    "今日の午後なぜか信じられないくらい作業がはかどる黄金の15分がやってきます。",
+    "今日はちょっと休憩を挟むだけで不思議と全部うまくいく日です。",
+    "目をいたわってあげるほど面白いアイデアがどんどん湧いてくる日です。"
   ];
 
   return {
@@ -349,7 +361,7 @@ function buildFortuneProfile(data) {
     destinyPulse: clampPercent(Math.round(focus * 0.42 + recovery * 0.26 + (100 - fatigue) * 0.18 + sync * 0.14)),
     cosmicWarning: fatigue > 68 ? "EMBER STORM" : dryEye > 58 ? "DRY COMET" : focus > 70 ? "CLEAR SKY" : "SOFT STATIC",
     mode: modes[index],
-    focusLuck: focus > 70 ? "伝説級" : focus > 55 ? "高め" : "揺らぎあり",
+    focusLuck: focus > 70 ? "神がかってます" : focus > 55 ? "かなり高め" : "ちょっと波があるかも",
     energyAnimal: animals[index],
     nightAffinity: affinities[(index + 2) % affinities.length],
     eyeDropChance: clampPercent(Math.round(dryEye * 0.88)),
