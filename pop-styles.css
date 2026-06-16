@@ -367,6 +367,41 @@ h2 {
   color: rgba(0, 0, 0, 0.56);
 }
 
+.fortune-desc {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.fortune-badge strong {
+  display: block;
+  margin-top: 10px;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: #000;
+}
+
+.fortune-note {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.64);
+}
+
+.fortune-explainer {
+  margin-top: 0;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
+.fortune-banner .fortune-badge {
+  min-height: 148px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .console-box strong,
 .metric-value,
 .report-card-value {

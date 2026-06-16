@@ -14,7 +14,9 @@ const reportDom = {
   fortuneMode: document.getElementById("fortuneMode"),
   auraTierValue: document.getElementById("auraTierValue"),
   destinyPulseValue: document.getElementById("destinyPulseValue"),
+  destinyPulseNote: document.getElementById("destinyPulseNote"),
   cosmicWarningValue: document.getElementById("cosmicWarningValue"),
+  cosmicWarningNote: document.getElementById("cosmicWarningNote"),
   matrixModal: document.getElementById("matrixDetailModal"),
   matrixModalBackdrop: document.getElementById("matrixModalBackdrop"),
   matrixModalClose: document.getElementById("matrixModalClose"),
@@ -201,9 +203,12 @@ function renderReport() {
   reportDom.capturedAtChip.textContent = snapshot.capturedAt
     ? `CAPTURED ${new Date(snapshot.capturedAt).toLocaleTimeString("ja-JP", { hour12: false })}`
     : "DEMO SNAPSHOT";
-  reportDom.auraTierValue.textContent = fortuneProfile.auraTier;
+  reportDom.auraTierValue.textContent =
+    "Destiny Pulse は、現在の目と集中力のコンディションを、総合的な診断数値を基に表します。70以上で絶好調です。Cosmic Warning は、疲れや乾き、集中の揺らぎ，各種パラメータの中で最も気にしたいサインを示しています。";
   reportDom.destinyPulseValue.textContent = `${fortuneProfile.destinyPulse}%`;
+  reportDom.destinyPulseNote.textContent = fortuneProfile.destinyPulseNote;
   reportDom.cosmicWarningValue.textContent = fortuneProfile.cosmicWarning;
+  reportDom.cosmicWarningNote.textContent = fortuneProfile.cosmicWarningNote;
   reportDom.fortuneMode.textContent = `MODE / ${fortuneProfile.mode}`;
 
   reportDom.grid.innerHTML = reportItems
@@ -231,12 +236,12 @@ function renderReport() {
   ];
 
   const advisories = [
-    "SIMULATED: visual reset window within 12 minutes",
-    "SIMULATED: hydration prompt recommended if dry-eye tendency rises",
-    "SIMULATED: deep focus window remains viable for short bursts",
-    "SIMULATED: microsleep risk monitor should remain passive unless fatigue spikes",
-    "SIMULATED: maintain frontal lighting for cleaner signal lock",
-    "SIMULATED: repeated scans improve display stability, not medical certainty"
+    "SIMULATED: 12分以内に目のリセットがおすすめ",
+    "SIMULATED: ドライアイ傾向が高まったら水分補給をおすすめ",
+    "SIMULATED: 短時間の深い集中はまだ十分可能",
+    "SIMULATED: 疲労が急上昇しない限り、仮眠リスクモニターは待機でOK",
+    "SIMULATED: 正面からの照明でシグナルロックが安定します",
+    "SIMULATED: 繰り返しスキャンで表示は安定しますが、医学的確度は上がりません"
   ];
 
   const fortuneLines = [
@@ -319,6 +324,26 @@ function closeMatrixDetail() {
   document.body.classList.remove("modal-open");
 }
 
+function buildDestinyPulseNote(score) {
+  if (score >= 70) {
+    return "集中と回復がそろっていて、目の総合コンディションは良好です。";
+  }
+  if (score >= 50) {
+    return "大きな問題はなく、全体としてはまずまずの状態です。";
+  }
+  return "疲労や乾きの影響で、少し休憩がおすすめです。";
+}
+
+function buildCosmicWarningNote(warning) {
+  const notes = {
+    "EMBER STORM": "疲労・眠気が高め。休憩を意識してください。",
+    "DRY COMET": "目の乾き傾向。水分補給とまばたきを意識してください。",
+    "CLEAR SKY": "視線が安定し、集中状態は良好です。",
+    "SOFT STATIC": "大きな問題はなく、やや波がある状態です。"
+  };
+  return notes[warning] || notes["SOFT STATIC"];
+}
+
 function buildFortuneProfile(data) {
   const fatigue = Math.round((data.fatigue || 0) * 100);
   const dryEye = Math.round((data.dryEye || 0) * 100);
@@ -368,10 +393,15 @@ function buildFortuneProfile(data) {
     "目をいたわってあげるほど面白いアイデアがどんどん湧いてくる日です。"
   ];
 
+  const destinyPulse = clampPercent(Math.round(focus * 0.42 + recovery * 0.26 + (100 - fatigue) * 0.18 + sync * 0.14));
+  const cosmicWarning = fatigue > 68 ? "EMBER STORM" : dryEye > 58 ? "DRY COMET" : focus > 70 ? "CLEAR SKY" : "SOFT STATIC";
+
   return {
     auraTier: auraTiers[index],
-    destinyPulse: clampPercent(Math.round(focus * 0.42 + recovery * 0.26 + (100 - fatigue) * 0.18 + sync * 0.14)),
-    cosmicWarning: fatigue > 68 ? "EMBER STORM" : dryEye > 58 ? "DRY COMET" : focus > 70 ? "CLEAR SKY" : "SOFT STATIC",
+    destinyPulse,
+    destinyPulseNote: buildDestinyPulseNote(destinyPulse),
+    cosmicWarning,
+    cosmicWarningNote: buildCosmicWarningNote(cosmicWarning),
     mode: modes[index],
     focusLuck: focus > 70 ? "神がかってます" : focus > 55 ? "かなり高め" : "ちょっと波があるかも",
     energyAnimal: animals[index],
