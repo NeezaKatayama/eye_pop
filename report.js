@@ -335,9 +335,21 @@ function buildFortuneProfile(data) {
     "元気がみなぎるサンシャインレッド"
   ];
   const modes = ["AURA DIVINATION", "DREAM SCAN", "FOCUS PROPHECY", "CIRCADIAN ORACLE", "RETINA RITUAL"];
-  const animals = ["Pixel Fox", "Chrome Owl", "Plasma Cat", "Quantum Whale", "Neon Wolf"];
+  const animals = [
+    "賢く立ち回るキツネ",
+    "夜更かしが得意なフクロウ",
+    "自由気ままなネコ",
+    "ゆったり構えるクジラ",
+    "一途に突き進むオオカミ"
+  ];
   const affinities = ["恐ろしいほど抜群", "なぜかめちゃくちゃ高い", "悪くない感じ", "ちょっとムラがあるかも", "どっぷり夜型モードの気配"];
-  const colors = ["electric cyan", "burnt amber", "acid mint", "laser coral", "moonlit silver"];
+  const colors = [
+    "目が覚めるような青",
+    "深みのある琥珀色",
+    "爽やかなミントグリーン",
+    "優しいコーラルピンク",
+    "静かに輝くシルバー"
+  ];
   const breaks = ["20秒間遠くをぼーっと眺める", "水をひと口飲んでリフレッシュする", "ぎゅっと目をつむってゆっくり3回まばたきする", "肩をぐるっと大きく一回まわす", "窓の外の景色を10秒眺める"];
   const moods = ["静かにゾーンに入れそうな予感", "なぜか締切直前にめちゃくちゃ強い", "夕方になると急に元気が出るタイプ", "午後になると急に買い物したくなるかも", "なぜか画面の文字がすらすら頭に入る"];
   const rituals = ["視線を一度左上にそらしてみる", "グッと背筋をのばしてみる", "デスクに手を置いて一度落ち着く", "深呼吸して頭をからっぽにする", "ゆっくりまばたきして目を休める"];
@@ -546,14 +558,6 @@ function mountHud() {
         p.rect(-p.width / 2, -p.height / 2 + 40, p.width, 18);
         p.rect(-p.width / 2, p.height / 2 - 58, p.width, 14);
       }
-
-      p.fill(...palette.title);
-      p.textAlign(p.CENTER, p.CENTER);
-      p.textSize(16);
-      p.text(fortuneProfile.auraTier, 0, -8);
-      p.textSize(10);
-      p.fill(...palette.subtitle);
-      p.text("ENTERTAINMENT SIGNAL ORBIT", 0, 16);
     };
   });
 }
