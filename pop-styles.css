@@ -374,6 +374,8 @@ h2 {
 
 .matrix-card {
   cursor: pointer;
+  position: relative;
+  text-align: left;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
@@ -386,6 +388,16 @@ h2 {
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
   border-color: rgba(93, 149, 173, 0.45);
   outline: none;
+}
+
+.matrix-card:focus-visible {
+  outline: 2px solid rgba(93, 149, 173, 0.75);
+  outline-offset: 2px;
+}
+
+.matrix-card.is-open {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  border-color: rgba(93, 149, 173, 0.42);
 }
 
 .console-key,
@@ -435,6 +447,18 @@ h2 {
   justify-content: flex-start;
 }
 
+.fortune-banner .fortune-badge.pop-tone-red {
+  background: linear-gradient(180deg, rgba(222, 61, 74, 0.18), rgba(255, 255, 255, 0.72));
+}
+
+.fortune-banner .fortune-badge.pop-tone-yellow {
+  background: linear-gradient(180deg, rgba(232, 170, 69, 0.2), rgba(255, 255, 255, 0.72));
+}
+
+.fortune-banner .fortune-badge.pop-tone-blue {
+  background: linear-gradient(180deg, rgba(93, 149, 173, 0.2), rgba(255, 255, 255, 0.72));
+}
+
 .console-box strong,
 .metric-value,
 .report-card-value {
@@ -453,10 +477,102 @@ h2 {
   padding: 14px 16px;
   line-height: 1.5;
   background: rgba(255, 255, 255, 0.76);
+  border-left: 4px solid transparent;
 }
 
 .forecast-row.emphasis {
   background: rgba(222, 61, 74, 0.08);
+}
+
+#indicatorList .forecast-row:nth-child(1),
+#indicatorList .forecast-row:nth-child(5) {
+  border-left-color: rgba(93, 149, 173, 0.9);
+  background: linear-gradient(90deg, rgba(93, 149, 173, 0.14), rgba(255, 255, 255, 0.82) 34%);
+}
+
+#indicatorList .forecast-row:nth-child(2),
+#indicatorList .forecast-row:nth-child(6) {
+  border-left-color: rgba(232, 170, 69, 0.92);
+  background: linear-gradient(90deg, rgba(232, 170, 69, 0.15), rgba(255, 255, 255, 0.82) 34%);
+}
+
+#indicatorList .forecast-row:nth-child(3) {
+  border-left-color: rgba(123, 199, 189, 0.95);
+  background: linear-gradient(90deg, rgba(123, 199, 189, 0.16), rgba(255, 255, 255, 0.82) 34%);
+}
+
+#indicatorList .forecast-row:nth-child(4) {
+  border-left-color: rgba(222, 61, 74, 0.88);
+  background: linear-gradient(90deg, rgba(222, 61, 74, 0.12), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#advisoryList .forecast-row:nth-child(1),
+#advisoryList .forecast-row:nth-child(4) {
+  border-left-color: rgba(123, 199, 189, 0.9);
+}
+
+#advisoryList .forecast-row:nth-child(2),
+#advisoryList .forecast-row:nth-child(5) {
+  border-left-color: rgba(93, 149, 173, 0.85);
+}
+
+#advisoryList .forecast-row:nth-child(3),
+#advisoryList .forecast-row:nth-child(6) {
+  border-left-color: rgba(232, 170, 69, 0.88);
+}
+
+#fortuneStream .forecast-row:nth-child(1),
+#fortuneStream .forecast-row:nth-child(4) {
+  border-left-color: rgba(222, 61, 74, 0.92);
+  background: linear-gradient(90deg, rgba(222, 61, 74, 0.14), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#fortuneStream .forecast-row:nth-child(2),
+#fortuneStream .forecast-row:nth-child(5) {
+  border-left-color: rgba(232, 170, 69, 0.92);
+  background: linear-gradient(90deg, rgba(232, 170, 69, 0.16), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#fortuneStream .forecast-row:nth-child(3),
+#fortuneStream .forecast-row:nth-child(6) {
+  border-left-color: rgba(93, 149, 173, 0.9);
+  background: linear-gradient(90deg, rgba(93, 149, 173, 0.14), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#horoscopeList .forecast-row:nth-child(1),
+#horoscopeList .forecast-row:nth-child(5) {
+  border-left-color: rgba(93, 149, 173, 0.88);
+  background: linear-gradient(90deg, rgba(93, 149, 173, 0.14), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#horoscopeList .forecast-row:nth-child(2),
+#horoscopeList .forecast-row:nth-child(4) {
+  border-left-color: rgba(123, 199, 189, 0.9);
+  background: linear-gradient(90deg, rgba(123, 199, 189, 0.14), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#horoscopeList .forecast-row:nth-child(3),
+#horoscopeList .forecast-row:nth-child(6) {
+  border-left-color: rgba(232, 170, 69, 0.9);
+  background: linear-gradient(90deg, rgba(232, 170, 69, 0.15), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#artSignalList .forecast-row:nth-child(1),
+#artSignalList .forecast-row:nth-child(4) {
+  border-left-color: rgba(93, 149, 173, 0.9);
+  background: linear-gradient(90deg, rgba(93, 149, 173, 0.14), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#artSignalList .forecast-row:nth-child(2),
+#artSignalList .forecast-row:nth-child(5) {
+  border-left-color: rgba(232, 170, 69, 0.9);
+  background: linear-gradient(90deg, rgba(232, 170, 69, 0.14), rgba(255, 255, 255, 0.84) 34%);
+}
+
+#artSignalList .forecast-row:nth-child(3),
+#artSignalList .forecast-row:nth-child(6) {
+  border-left-color: rgba(123, 199, 189, 0.9);
+  background: linear-gradient(90deg, rgba(123, 199, 189, 0.14), rgba(255, 255, 255, 0.84) 34%);
 }
 
 .telemetry-row,
@@ -506,6 +622,250 @@ h2 {
   justify-content: space-between;
   gap: 10px;
   align-items: flex-start;
+}
+
+.report-card-head-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.report-card-kicker {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.42);
+}
+
+.report-card-detail {
+  display: grid;
+  gap: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 220ms ease,
+    opacity 180ms ease,
+    margin-top 180ms ease;
+}
+
+.matrix-card.is-open .report-card-detail {
+  max-height: 420px;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+.report-card-detail-block {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.report-card-detail-label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(93, 149, 173, 0.92);
+}
+
+.report-card-detail-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.report-card-icon,
+.mini-signal-icon {
+  position: relative;
+  flex: 0 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.report-card-icon {
+  width: 44px;
+  height: 44px;
+  margin-top: 1px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.mini-signal-icon {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.report-card-icon::before,
+.report-card-icon::after,
+.mini-signal-icon::before,
+.mini-signal-icon::after {
+  content: "";
+  position: absolute;
+}
+
+.report-card-icon .icon-layer,
+.mini-signal-icon .icon-layer {
+  position: absolute;
+  pointer-events: none;
+}
+
+.icon-ring {
+  inset: 7px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0.45;
+}
+
+.icon-core {
+  width: 10px;
+  height: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.icon-mark {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tone-red { color: #de3d4a; }
+.tone-yellow { color: #d39a31; }
+.tone-blue { color: #4d89ac; }
+.tone-mint { color: #4cad9d; }
+
+.icon-pulse .icon-mark {
+  width: 18px;
+  height: 10px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translate(-50%, -50%) skewX(-30deg) rotate(-14deg);
+}
+
+.icon-tear .icon-mark,
+.icon-drop .icon-mark {
+  width: 13px;
+  height: 18px;
+  border-radius: 50% 50% 60% 60%;
+  background: currentColor;
+  clip-path: polygon(50% 0%, 84% 38%, 75% 100%, 25% 100%, 16% 38%);
+}
+
+.icon-focus .icon-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.92);
+}
+
+.icon-bloom .icon-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, currentColor 0 16%, transparent 18%),
+    conic-gradient(from 0deg, currentColor 0 16%, transparent 16% 32%, currentColor 32% 48%, transparent 48% 64%, currentColor 64% 80%, transparent 80% 100%);
+  opacity: 0.9;
+}
+
+.icon-sync .icon-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.icon-moon .icon-mark {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: -4px 0 0 0 currentColor;
+}
+
+.icon-burn .icon-mark {
+  width: 14px;
+  height: 18px;
+  background: currentColor;
+  clip-path: polygon(50% 0%, 72% 28%, 58% 42%, 80% 100%, 44% 74%, 35% 100%, 18% 46%);
+}
+
+.icon-retina .icon-mark,
+.icon-screen .icon-mark {
+  width: 18px;
+  height: 12px;
+  border-radius: 10px;
+  border: 2px solid currentColor;
+}
+
+.icon-pause .icon-mark {
+  width: 16px;
+  height: 14px;
+  background:
+    linear-gradient(90deg, currentColor 0 34%, transparent 34% 66%, currentColor 66% 100%);
+}
+
+.icon-scatter .icon-mark {
+  width: 20px;
+  height: 20px;
+  background:
+    radial-gradient(circle, currentColor 0 2px, transparent 3px) 2px 8px / 8px 8px no-repeat,
+    radial-gradient(circle, currentColor 0 2px, transparent 3px) 11px 2px / 8px 8px no-repeat,
+    radial-gradient(circle, currentColor 0 2px, transparent 3px) 11px 13px / 8px 8px no-repeat;
+}
+
+.icon-echo .icon-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 0 6px currentColor;
+}
+
+.icon-calm .icon-mark {
+  width: 18px;
+  height: 10px;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+}
+
+.icon-flow .icon-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translate(-50%, -50%) rotate(-24deg);
+}
+
+.icon-grid .icon-mark {
+  width: 18px;
+  height: 18px;
+  background:
+    linear-gradient(currentColor 0 0) 0 0 / 5px 5px no-repeat,
+    linear-gradient(currentColor 0 0) 7px 0 / 5px 5px no-repeat,
+    linear-gradient(currentColor 0 0) 14px 0 / 4px 5px no-repeat,
+    linear-gradient(currentColor 0 0) 0 7px / 5px 5px no-repeat,
+    linear-gradient(currentColor 0 0) 7px 7px / 5px 5px no-repeat,
+    linear-gradient(currentColor 0 0) 14px 7px / 4px 5px no-repeat;
 }
 
 .matrix-modal {

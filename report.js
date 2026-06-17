@@ -82,27 +82,27 @@ function buildReport(data) {
   const perclos = Math.round((data.perclos || 0) * 100);
 
   return [
-    item("Neural Fatigue Drift", fatigue, fatigue > 65 ? "elevated" : "moderate", "神経疲労の蓄積度"),
-    item("Tear Film Stability", 100 - dryEye, dryEye > 55 ? "fragile" : "stable", "涙液層の安定性"),
-    item("Visual Recovery Reserve", recovery, recovery > 60 ? "buffered" : "reduced", "視覚回復の余力"),
-    item("Cognitive Focus Coherence", focus, focus > 65 ? "locked" : "drifting", "集中力の持続性とブレ"),
-    item("Ocular Symmetry Sync", sync, sync > 70 ? "balanced" : "uneven", "左右の眼の開閉バランス"),
-    item("Circadian Drag Index", clampPercent(fatigue + perclos * 0.3), fatigue > 60 ? "late-phase" : "nominal", "概日リズムの遅れ（眠気度）"),
-    item("Desk Burnout Vector", clampPercent((fatigue + dryEye) * 0.58), dryEye > 60 ? "rising" : "contained", "デスクワーク総合負荷"),
-    item("Retinal Load Projection", clampPercent((100 - focus) * 0.62 + dryEye * 0.18), focus < 45 ? "heavy" : "light", "網膜への蓄積負荷"),
-    item("Hydration Suggestion Flux", clampPercent(dryEye * 0.9), dryEye > 58 ? "prompt" : "passive", "ドライアイ警戒度"),
-    item("Micropause Deficit", clampPercent((100 - recovery) * 0.72), recovery < 45 ? "high" : "manageable", "小休止（マイクロポーズ）の不足度"),
-    item("Attention Scatter Field", clampPercent((100 - focus) * 0.85), focus < 50 ? "wide" : "tight", "視線の散らばり具合"),
-    item("Sleep Debt Echo", clampPercent(perclos * 1.9), perclos > 20 ? "echoing" : "minimal", "睡眠負債の影響度"),
-    item("Screen Overexposure Flag", clampPercent(dryEye * 0.66 + fatigue * 0.24), dryEye > 52 ? "watch" : "low", "画面の長時間注視フラグ"),
-    item("Autonomic Calm Estimate", clampPercent(recovery * 0.7 + focus * 0.2), recovery > 55 ? "steady" : "strained", "自律神経の安定度（リラックス度）"),
-    item("Mental Throughput Forecast", clampPercent(focus * 0.74 + recovery * 0.16), focus > 68 ? "high" : "variable", "処理能力・集中力の持続予測"),
-    item("Executive Bandwidth", clampPercent(focus * 0.5 + (100 - fatigue) * 0.3), fatigue > 65 ? "compressed" : "open", "脳の処理キャパシティ（認知資源）")
+    item("Neural Fatigue Drift", fatigue, fatigue > 65 ? "elevated" : "moderate", "神経疲労の蓄積度", "pulse", "red"),
+    item("Tear Film Stability", 100 - dryEye, dryEye > 55 ? "fragile" : "stable", "涙液層の安定性", "tear", "yellow"),
+    item("Visual Recovery Reserve", recovery, recovery > 60 ? "buffered" : "reduced", "視覚回復の余力", "bloom", "mint"),
+    item("Cognitive Focus Coherence", focus, focus > 65 ? "locked" : "drifting", "集中力の持続性とブレ", "focus", "blue"),
+    item("Ocular Symmetry Sync", sync, sync > 70 ? "balanced" : "uneven", "左右の眼の開閉バランス", "sync", "blue"),
+    item("Circadian Drag Index", clampPercent(fatigue + perclos * 0.3), fatigue > 60 ? "late-phase" : "nominal", "概日リズムの遅れ（眠気度）", "moon", "yellow"),
+    item("Desk Burnout Vector", clampPercent((fatigue + dryEye) * 0.58), dryEye > 60 ? "rising" : "contained", "デスクワーク総合負荷", "burn", "red"),
+    item("Retinal Load Projection", clampPercent((100 - focus) * 0.62 + dryEye * 0.18), focus < 45 ? "heavy" : "light", "網膜への蓄積負荷", "retina", "blue"),
+    item("Hydration Suggestion Flux", clampPercent(dryEye * 0.9), dryEye > 58 ? "prompt" : "passive", "ドライアイ警戒度", "drop", "mint"),
+    item("Micropause Deficit", clampPercent((100 - recovery) * 0.72), recovery < 45 ? "high" : "manageable", "小休止（マイクロポーズ）の不足度", "pause", "yellow"),
+    item("Attention Scatter Field", clampPercent((100 - focus) * 0.85), focus < 50 ? "wide" : "tight", "視線の散らばり具合", "scatter", "red"),
+    item("Sleep Debt Echo", clampPercent(perclos * 1.9), perclos > 20 ? "echoing" : "minimal", "睡眠負債の影響度", "echo", "mint"),
+    item("Screen Overexposure Flag", clampPercent(dryEye * 0.66 + fatigue * 0.24), dryEye > 52 ? "watch" : "low", "画面の長時間注視フラグ", "screen", "blue"),
+    item("Autonomic Calm Estimate", clampPercent(recovery * 0.7 + focus * 0.2), recovery > 55 ? "steady" : "strained", "自律神経の安定度（リラックス度）", "calm", "mint"),
+    item("Mental Throughput Forecast", clampPercent(focus * 0.74 + recovery * 0.16), focus > 68 ? "high" : "variable", "処理能力・集中力の持続予測", "flow", "yellow"),
+    item("Executive Bandwidth", clampPercent(focus * 0.5 + (100 - fatigue) * 0.3), fatigue > 65 ? "compressed" : "open", "脳の処理キャパシティ（認知資源）", "grid", "red")
   ];
 }
 
-function item(title, value, state, note) {
-  return { title, value: Math.round(value), state, note };
+function item(title, value, state, note, icon, tone) {
+  return { title, value: Math.round(value), state, note, icon, tone };
 }
 
 function buildMatrixDetails() {
@@ -214,14 +214,44 @@ function renderReport() {
   reportDom.grid.innerHTML = reportItems
     .map(
       (entry) => `
-        <article class="report-card matrix-card" role="button" tabindex="0" data-matrix-title="${entry.title}">
+        ${(() => {
+          const detail = matrixDetails[entry.title];
+          return `
+        <article
+          class="report-card matrix-card"
+          role="button"
+          tabindex="0"
+          data-matrix-title="${entry.title}"
+        >
           <div class="report-card-head">
-            <span class="report-card-title">${entry.title}</span>
+            <div class="report-card-head-left">
+              <div class="report-card-icon tone-${entry.tone} icon-${entry.icon}" aria-hidden="true">
+                <span class="icon-layer icon-ring"></span>
+                <span class="icon-layer icon-core"></span>
+                <span class="icon-layer icon-mark"></span>
+              </div>
+              <div>
+                <span class="report-card-title">${entry.title}</span>
+                <span class="report-card-kicker">${entry.note}</span>
+              </div>
+            </div>
             <span class="report-card-state">${entry.state}</span>
           </div>
           <div class="report-card-value">${entry.value}%</div>
-          <p class="report-card-note">${entry.note}</p>
+          <p class="report-card-note">タップすると説明が開きます。</p>
+          <div class="report-card-detail" aria-hidden="true">
+            <div class="report-card-detail-block">
+              <span class="report-card-detail-label">直訳</span>
+              <p class="report-card-detail-text">${detail.literal}</p>
+            </div>
+            <div class="report-card-detail-block">
+              <span class="report-card-detail-label">解説</span>
+              <p class="report-card-detail-text">${detail.description}</p>
+            </div>
+          </div>
         </article>
+      `;
+        })()}
       `
     )
     .join("");
@@ -269,26 +299,23 @@ function renderReport() {
 }
 
 function bindMatrixDetailInteractions() {
-  if (!reportDom.grid || !reportDom.matrixModal) {
+  if (!reportDom.grid) {
     return;
   }
 
-  reportDom.grid.addEventListener("click", (event) => {
-    const card = event.target.closest(".matrix-card");
-    if (!card) {
-      return;
-    }
-    openMatrixDetail(card.dataset.matrixTitle);
-  });
-
-  reportDom.grid.addEventListener("keydown", (event) => {
-    const card = event.target.closest(".matrix-card");
-    if (!card || (event.key !== "Enter" && event.key !== " ")) {
-      return;
-    }
-    event.preventDefault();
-    openMatrixDetail(card.dataset.matrixTitle);
-  });
+  for (const card of reportDom.grid.querySelectorAll(".matrix-card")) {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => {
+      toggleMatrixDetail(card);
+    });
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      toggleMatrixDetail(card);
+    });
+  }
 
   reportDom.matrixModalClose?.addEventListener("click", closeMatrixDetail);
   reportDom.matrixModalBackdrop?.addEventListener("click", closeMatrixDetail);
@@ -298,6 +325,21 @@ function bindMatrixDetailInteractions() {
       closeMatrixDetail();
     }
   });
+}
+
+function toggleMatrixDetail(card) {
+  const isOpen = card.classList.contains("is-open");
+  for (const entry of reportDom.grid.querySelectorAll(".matrix-card")) {
+    entry.classList.remove("is-open");
+    entry.setAttribute("aria-expanded", "false");
+    entry.querySelector(".report-card-detail")?.setAttribute("aria-hidden", "true");
+  }
+  if (isOpen) {
+    return;
+  }
+  card.classList.add("is-open");
+  card.setAttribute("aria-expanded", "true");
+  card.querySelector(".report-card-detail")?.setAttribute("aria-hidden", "false");
 }
 
 function openMatrixDetail(title) {
@@ -313,6 +355,8 @@ function openMatrixDetail(title) {
   reportDom.matrixModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
 }
+
+window.openMatrixDetail = openMatrixDetail;
 
 function closeMatrixDetail() {
   if (!reportDom.matrixModal) {

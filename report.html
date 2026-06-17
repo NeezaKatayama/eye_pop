@@ -6,7 +6,7 @@
     <title>Eye Health Pop Report</title>
     <link rel="stylesheet" href="./pop-styles.css" />
     <script src="./p5.min.js"></script>
-    <script defer src="./report.js?v=jp-labels-2"></script>
+    <script defer src="./report.js?v=matrix-inline-25"></script>
   </head>
   <body class="pop-body">
     <div class="app-shell pop-shell">
@@ -72,6 +72,11 @@
           </div>
         </section>
 
+        <section class="card report-grid-card polished-panel polished-matrix future-panel">
+          <div class="card-label">Expanded Forecast Matrix</div>
+          <div id="reportGrid" class="report-grid"></div>
+        </section>
+
         <section class="report-bottom-grid polished-stack">
           <section class="card polished-panel future-panel">
             <div class="card-label">Primary Indicators</div>
@@ -81,11 +86,6 @@
             <div class="card-label">Advisory Stream</div>
             <div id="advisoryList" class="forecast-list"></div>
           </section>
-        </section>
-
-        <section class="card report-grid-card polished-panel polished-matrix future-panel">
-          <div class="card-label">Expanded Forecast Matrix</div>
-          <div id="reportGrid" class="report-grid"></div>
         </section>
 
         <section class="report-bottom-grid polished-stack">
