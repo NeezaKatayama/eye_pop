@@ -1283,10 +1283,70 @@ body.modal-open {
     grid-template-columns: 1fr;
   }
 
+  .pop-intro-card,
+  .future-hero-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 14px;
+    padding: 20px 18px;
+  }
+
+  .future-hero-card .pop-dot-cluster {
+    min-height: 112px;
+  }
+
+  .future-hero-card h2 {
+    font-size: clamp(1.3rem, 7vw, 1.8rem);
+    line-height: 1.18;
+  }
+
+  .future-stage-card {
+    min-height: 560px;
+    padding: 14px;
+  }
+
+  .future-stage-card #video,
+  .future-stage-card #visionCanvas,
+  .future-stage-card #hudOverlay,
+  .future-stage-card .stage-vignette,
+  .future-stage-card .frame-corners {
+    inset: 14px;
+    width: calc(100% - 28px);
+    height: calc(100% - 28px);
+  }
+
+  .future-art-main {
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .art-canvas-shell {
+    padding: 8px;
+    border-radius: 24px;
+  }
+
+  #artCanvasMount canvas {
+    height: auto;
+    aspect-ratio: 9 / 14;
+    min-height: 68vh;
+    object-fit: contain;
+    border-radius: 20px;
+  }
+
   .polished-art-copy {
     position: static;
     margin-top: 18px;
     max-width: none;
+    padding: 16px;
+  }
+
+  .polished-art-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .art-overlay-copy {
+    left: auto;
+    bottom: auto;
   }
 
   .stage-glyph,

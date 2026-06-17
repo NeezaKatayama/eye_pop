@@ -174,7 +174,7 @@ function analyzeEyes(landmarks) {
   const left = extractEyeMetrics(landmarks, LEFT_EYE);
   const right = extractEyeMetrics(landmarks, RIGHT_EYE);
   const avgEar = (left.ear + right.ear) * 0.5;
-  const smoothFactor = 0.2;
+  const smoothFactor = 0.28;
 
   analysisState.smoothedEar =
     analysisState.smoothedEar == null
@@ -187,8 +187,8 @@ function analyzeEyes(landmarks) {
     analysisState.baselineEar = analysisState.baselineEar * 0.98 + Math.max(analysisState.baselineEar, analysisState.smoothedEar) * 0.02;
   }
 
-  const closureThreshold = analysisState.baselineEar * 0.7;
-  const partialThreshold = analysisState.baselineEar * 0.86;
+  const closureThreshold = analysisState.baselineEar * 0.76;
+  const partialThreshold = analysisState.baselineEar * 0.91;
   const eyesClosedNow = analysisState.smoothedEar < closureThreshold;
 
   analysisState.closureHistory.push({ t: now, closed: eyesClosedNow ? 1 : 0 });
@@ -204,7 +204,7 @@ function analyzeEyes(landmarks) {
   } else if (!eyesClosedNow && analysisState.eyeClosed) {
     const duration = now - (analysisState.blinkStartedAt || now);
     analysisState.eyeClosed = false;
-    if (duration > 45 && duration < 900) {
+    if (duration > 35 && duration < 900) {
       analysisState.totalBlinkCount += 1;
       const partial = analysisState.smoothedEar > closureThreshold && analysisState.smoothedEar < partialThreshold;
       if (partial) {
