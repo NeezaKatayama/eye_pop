@@ -1326,13 +1326,13 @@ body.modal-open {
   }
 
   #artCanvasMount {
-    min-height: 68vh;
+    min-height: 74vh;
   }
 
   #artCanvasMount canvas {
     height: auto;
     aspect-ratio: 9 / 14;
-    min-height: 68vh;
+    min-height: 74vh;
     max-height: none;
     object-fit: contain;
     border-radius: 20px;

@@ -144,13 +144,13 @@ function mountArt() {
       const mobilePortrait = isMobilePortrait();
       const cols = mobilePortrait ? Math.max(4, Math.round(artProfile.gridCount * 0.52)) : artProfile.gridCount;
       const rows = mobilePortrait ? Math.max(7, Math.round(artProfile.gridCount * 1.2)) : artProfile.gridCount;
-      const insetX = mobilePortrait ? p.width * 0.08 : p.width * 0.1;
-      const insetY = mobilePortrait ? p.height * 0.06 : p.height * 0.12;
+      const insetX = mobilePortrait ? p.width * 0.04 : p.width * 0.1;
+      const insetY = mobilePortrait ? p.height * 0.035 : p.height * 0.12;
       const innerWidth = Math.max(120, p.width - insetX * 2);
       const innerHeight = Math.max(180, p.height - insetY * 2);
       const cellX = innerWidth / cols;
       const cellY = innerHeight / rows;
-      const baseDiameter = Math.min(cellX, cellY) * (mobilePortrait ? 0.78 : 0.72);
+      const baseDiameter = Math.min(cellX, cellY) * (mobilePortrait ? 0.9 : 0.72);
 
       for (let col = 0; col < cols; col += 1) {
         for (let row = 0; row < rows; row += 1) {
