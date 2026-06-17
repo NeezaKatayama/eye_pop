@@ -1325,10 +1325,15 @@ body.modal-open {
     border-radius: 24px;
   }
 
+  #artCanvasMount {
+    min-height: 68vh;
+  }
+
   #artCanvasMount canvas {
     height: auto;
     aspect-ratio: 9 / 14;
     min-height: 68vh;
+    max-height: none;
     object-fit: contain;
     border-radius: 20px;
   }

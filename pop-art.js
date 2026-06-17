@@ -115,7 +115,7 @@ function mountArt() {
     const palette = buildPalette();
 
     p.setup = () => {
-      const canvas = p.createCanvas(artDom.mount.clientWidth || 920, 860);
+      const canvas = p.createCanvas(getCanvasWidth(), getCanvasHeight());
       canvas.parent(artDom.mount);
       artCanvasElement = canvas.elt;
       p.pixelDensity(1);
@@ -125,7 +125,7 @@ function mountArt() {
     };
 
     p.windowResized = () => {
-      p.resizeCanvas(artDom.mount.clientWidth || 920, 860);
+      p.resizeCanvas(getCanvasWidth(), getCanvasHeight());
       buildScene();
     };
 
@@ -141,26 +141,47 @@ function mountArt() {
     function buildScene() {
       p.randomSeed(100 + artProfile.gridCount * 17);
       arcUnits = [];
-      const count = artProfile.gridCount;
-      const panelSize = Math.min(p.width, p.height) * 0.8;
-      const gap = panelSize / (count + 1.6);
-      const offsetX = (p.width - gap * (count - 1)) * 0.5;
-      const offsetY = (p.height - gap * (count - 1)) * 0.4;
+      const mobilePortrait = isMobilePortrait();
+      const cols = mobilePortrait ? Math.max(4, Math.round(artProfile.gridCount * 0.52)) : artProfile.gridCount;
+      const rows = mobilePortrait ? Math.max(7, Math.round(artProfile.gridCount * 1.2)) : artProfile.gridCount;
+      const insetX = mobilePortrait ? p.width * 0.08 : p.width * 0.1;
+      const insetY = mobilePortrait ? p.height * 0.06 : p.height * 0.12;
+      const innerWidth = Math.max(120, p.width - insetX * 2);
+      const innerHeight = Math.max(180, p.height - insetY * 2);
+      const cellX = innerWidth / cols;
+      const cellY = innerHeight / rows;
+      const baseDiameter = Math.min(cellX, cellY) * (mobilePortrait ? 0.78 : 0.72);
 
-      for (let i = 0; i < count; i += 1) {
-        for (let j = 0; j < count; j += 1) {
-          if ((i + j) % 2 !== 0) {
+      for (let col = 0; col < cols; col += 1) {
+        for (let row = 0; row < rows; row += 1) {
+          if ((col + row) % 2 !== 0) {
             continue;
           }
 
-          const x = offsetX + i * gap;
-          const y = offsetY + j * gap;
+          const x = insetX + cellX * (col + 0.5);
+          const y = insetY + cellY * (row + 0.5);
           const layers = p.floor(p.random(artProfile.layerMin, artProfile.layerMax + 1));
           for (let n = 0; n < layers; n += 1) {
-            arcUnits.push(new ArcUnit(p, x, y, gap * p.random(0.42, 0.68), palette));
+            arcUnits.push(new ArcUnit(p, x, y, baseDiameter * p.random(0.42, 0.7), palette));
           }
         }
       }
+    }
+
+    function getCanvasWidth() {
+      return artDom.mount.clientWidth || 920;
+    }
+
+    function getCanvasHeight() {
+      if (isMobilePortrait()) {
+        const viewportHeight = window.innerHeight || 860;
+        return Math.max(700, Math.round(viewportHeight * 0.72));
+      }
+      return 860;
+    }
+
+    function isMobilePortrait() {
+      return window.innerWidth <= 720 && window.innerHeight > window.innerWidth;
     }
 
     function buildPalette() {
